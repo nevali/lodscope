@@ -23,6 +23,14 @@ class LODScopeHomepage extends Page
 	protected $defaultSkin = 'lodscope';
 	protected $templateName = 'home.phtml';
 	protected $uri = null;
+
+	protected $supportedTypes = array(
+		'text/html',
+		'text/turtle',
+		'application/rdf+xml',
+		'text/n3',
+		'application/json',
+		);
 	
 	protected function getObject()
 	{

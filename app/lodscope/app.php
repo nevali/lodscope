@@ -22,5 +22,6 @@ class LODScopeApp extends App
 	{
 		parent::__construct();
 		$this->routes['__NONE__'] = array('file' => 'home.php', 'class' => 'LODScopeHomePage');
+		$this->routes['index'] = array('file' => 'home.php', 'class' => 'LODScopeHomePage');
 	}
 }
