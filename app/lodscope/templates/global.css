@@ -1,0 +1,100 @@
+/*
+Copyright (c) 2010, Yahoo! Inc. All rights reserved.
+Code licensed under the BSD License:
+http://developer.yahoo.com/yui/license.html
+version: 3.2.0
+build: 2676
+*/
+html{color:#000;background:#FFF;}body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,textarea,p,blockquote,th,td{margin:0;padding:0;}table{border-collapse:collapse;border-spacing:0;}fieldset,img{border:0;}address,caption,cite,code,dfn,em,strong,th,var{font-style:normal;font-weight:normal;}li{list-style:none;}caption,th{text-align:left;}h1,h2,h3,h4,h5,h6{font-size:100%;font-weight:normal;}q:before,q:after{content:'';}abbr,acronym{border:0;font-variant:normal;}sup{vertical-align:text-top;}sub{vertical-align:text-bottom;}input,textarea,select{font-family:inherit;font-size:inherit;font-weight:inherit;}input,textarea,select{*font-size:100%;}legend{color:#000;}
+body{font:13px/1.231 'Helvetica Neue',arial,helvetica,clean,sans-serif;*font-size:small;*font:x-small;}select,input,button,textarea{font:99% arial,helvetica,clean,sans-serif;}table{font-size:inherit;font:100%;}pre,code,kbd,samp,tt{font-family:monospace;*font-size:108%;line-height:100%;}
+
+/* Stylesheet for RDF in HTML tables */
+
+a { text-decoration: none; color: #007; }
+a:hover, a:active { text-decoration: underline; }
+
+a.local { color: #770; }
+a.browse { color: #077; }
+
+header, article, footer {
+	display: block;
+	width: 976px;
+	margin: 1em auto;
+}
+header {
+	margin: 0 auto 16px auto;
+	border-bottom: solid #ccc 1px;
+	padding: 8px 0;
+}
+header p, header ul, header li {
+	display: inline;
+	color: #666;
+}
+header li:after {
+	content: ', ';
+}
+header li:last-child:after {
+	content: '.';
+}
+footer {
+    margin: 16px auto 0 auto;
+    border-top: solid #ccc 1px;
+    font-family: 'Gill Sans', 'Arial';
+	padding-top: 8px;
+	color: #666;
+	min-height: 48px;
+}
+footer strong {
+	color: #000;
+}
+h1 {
+	font-family: 'Gill Sans';
+	font-size: 150%;
+}
+h2 {
+	font-family: 'Gill Sans';
+	font-size: 120%;
+}
+table, td, th {
+	font-size: 100%;
+}
+
+table {
+	border-collapse: collapse;
+	margin: 1em 0 1em 0;
+	border: solid #666 1px;
+}
+thead {
+	background: #666;
+	color: #fff;
+	border: solid #666 1px;
+}
+thead th {
+	font-weight: normal;
+	padding: 6px 4px;
+}
+thead th.predicate {
+	width: 14em;
+}
+td {
+	vertical-align: top;
+	padding: 4px;
+	border: solid #666 1px;
+}
+thead {
+	padding-right: 8px;
+}
+td p {
+	margin: 0 0 0.5em 0;
+}
+q {
+	color: #700;
+}
+p, form, ul, ol {
+	margin: 1em 0;
+}
+ul > li {
+	margin: 0.25em 1em 0.25em 1.5em;
+	list-style: square outside;
+}
+
