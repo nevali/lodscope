@@ -37,6 +37,19 @@ class LODScopeHomepage extends Page
 		'application/json',
 		);
 	
+		public function __construct()
+		{
+			parent::__construct();
+			RDF::registerPrefix('og', 'http://ogp.me/ns#');
+			RDF::registerPrefix('fb', 'http://ogp.me/ns/fb#');
+			RDF::registerPrefix('user', 'http://graph.facebook.com/schema/user#');
+			RDF::registerPrefix('schema', 'http://schema.org/');
+			RDF::registerPrefix('wo', 'http://purl.org/ontology/wo/');
+			RDF::registerPrefix('po', 'http://purl.org/ontology/po/');
+			RDF::registerPrefix('cc', 'http://creativecommons.org/ns#');
+			RDF::registerPrefix('skos2004', 'http://www.w3.org/2004/02/skos/core#');
+		}
+	
 	protected function getObject()
 	{
 		if(isset($this->request->query['uri']))
