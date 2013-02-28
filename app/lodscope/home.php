@@ -28,7 +28,12 @@ class LODScopeHomepage extends Page
 		'text/html',
 		'text/turtle',
 		'application/rdf+xml',
-		'text/n3',
+		'application/n3',
+		'application/n-triples',
+		'text/n3' => array('hide' => true),
+		'text/plain' => array('hide' => true),
+		'text/rdf+n3' => array('hide' => true),
+		'application/ld+json',
 		'application/json',
 		);
 	

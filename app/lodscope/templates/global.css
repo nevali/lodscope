@@ -26,8 +26,10 @@ header {
 	border-bottom: solid #ccc 1px;
 	padding: 8px 0;
 }
-header p, header ul, header li {
+header p, header ul, header ul>li {
 	display: inline;
+	list-style: none;
+	margin: 0;
 	color: #666;
 }
 header li:after {

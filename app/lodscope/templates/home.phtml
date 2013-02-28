@@ -52,9 +52,18 @@ if(isset($object))
 	{
 		$jumpLink = '';
 	}
+	$query = '?uri=' . urlencode($uri);
 	$header = array(
 		'<header>',
 		'<h1>' . _e($object->htmlTitle) . '</h1>',
+		'<p>Also available as:</p>',
+		'<ul class="resource-types">',
+		'<li><a href="'. _e($app_root . 'index.ttl' . $query) . '">Turtle</a></li>',
+		'<li><a href="'. _e($app_root . 'index.n3' . $query) . '">N3</a></li>',
+		'<li><a href="'. _e($app_root . 'index.nt' . $query) . '">N-Triples</a> (<a href="' . _e($app_root . 'index.text' . $query) . '">Text</a>)</li>',
+		'<li><a href="'. _e($app_root . 'index.rdf' . $query) . '">RDF/XML</a></li>',
+		'<li><a href="'. _e($app_root . 'index.json' . $query) . '">JSON</a> (<a href="' . _e($app_root . 'index.jsonld' . $query) . '">JSON-LD</a>)</li>',
+		'</ul>',
 		implode("\n", $form),
 		'</header>',
 		'<article>',	
