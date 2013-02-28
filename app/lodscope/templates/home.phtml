@@ -24,6 +24,10 @@ $examples = array(
 	'http://creativecommons.org/licenses/by/3.0/' => 'Creative Commons 3.0 Unported license',
 	'http://purl.org/dc/terms/hasVersion' => 'dct:hasVersion from the DCMI Metadata Terms',
 	'http://rdf.freebase.com/ns/en.bbc' => 'BBC on Freebase',
+	'http://data.nature.com/ns/articles/10.1038/445239a' => 'Behind the hunt for the Higgs boson on Nature.com',
+	'http://viaf.org/viaf/120719476/' => 'Ruth Rendell on VIAF',
+	'http://data.open.ac.uk/bbc/b00mfl7n' => 'OU on the BBC: Frozen Planet from the Open University',
+	'http://musicbrainz.org/artist/ba2f4f3b-0293-4bc8-bb94-2f73b5207343#_' => 'Underworld on MusicBrainz',
 );
 
 $form = array();
@@ -52,25 +56,36 @@ if(isset($object))
 	{
 		$jumpLink = '';
 	}
+	if(!strlen($object->htmlTitle))
+	{
+		$object->htmlTitle = $uri;
+	}
 	$query = '?uri=' . urlencode($uri);
 	$header = array(
 		'<header>',
 		'<h1>' . _e($object->htmlTitle) . '</h1>',
+		'<p><a class="visit" href="' . _e($uri) . '">Visit page</a>.</p>',
 		'<p>Also available as:</p>',
 		'<ul class="resource-types">',
-		'<li><a href="'. _e($app_root . 'index.ttl' . $query) . '">Turtle</a></li>',
-		'<li><a href="'. _e($app_root . 'index.n3' . $query) . '">N3</a></li>',
-		'<li><a href="'. _e($app_root . 'index.nt' . $query) . '">N-Triples</a> (<a href="' . _e($app_root . 'index.text' . $query) . '">Text</a>)</li>',
-		'<li><a href="'. _e($app_root . 'index.rdf' . $query) . '">RDF/XML</a></li>',
-		'<li><a href="'. _e($app_root . 'index.json' . $query) . '">JSON</a> (<a href="' . _e($app_root . 'index.jsonld' . $query) . '">JSON-LD</a>)</li>',
-		'</ul>',
-		implode("\n", $form),
-		'</header>',
-		'<article>',	
-		$jumpLink,
-	);
+		);
+	foreach($serialisations as $path => $info)
+	{
+		$item = '<li><a href="' . _e($path) . '">' . $info['title'] . '</a>';
+		foreach($info['alt'] as $altpath => $altinfo)
+		{
+			$item .= ' (<a href="' . _e($altpath) . '">' . $altinfo['title'] . '</a>)';
+		}
+		$item .= '</li>';
+		$header[] = $item;
+	}
+	$header[] = '</ul>';
+	$header[] = implode("\n", $form);
+	$header[] = '</header>';
+	$header[] = '<article>';
+	$header[] = $jumpLink;
 	$object->htmlPreBody = implode("\n", $header);
 	$object->htmlPostBody = implode("\n", $footer);
+	$object->htmlLinks = $links;
 	$object->htmlLinks[] = array('rel' => 'stylesheet', 'href' => $skin_iri . 'global.css', 'type' => 'text/css');
 	$buf = $object->serialise($type, false, $request, false);
 }
@@ -83,6 +98,7 @@ else
 		<meta charset="UTF-8">
 		<title>LODscope</title>
 		<link rel="stylesheet" type="text/css" href="<?php e($skin_iri . 'global.css'); ?>">
+		<?php $this->links(); ?>
 	</head>
 	<body>
 		<header>
