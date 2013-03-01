@@ -39,3 +39,6 @@ if(isset($_SERVER['http_proxy'])) putenv('http_proxy=' . $_SERVER['http_proxy'])
 if(isset($_SERVER['https_proxy'])) putenv('https_proxy=' . $_SERVER['https_proxy']);
 if(isset($_SERVER['no_proxy'])) putenv('no_proxy=' . $_SERVER['no_proxy']);
 
+define('LODSCOPE_FETCH_VOCABULARIES', true);
+define('CURL_ALWAYS_VERBOSE', true);
+define('CURL_CACHE_DIR', INSTANCE_ROOT . 'cache/curl/');

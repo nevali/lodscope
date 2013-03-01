@@ -34,11 +34,20 @@ class LODScopeHomepage extends Page
 		RDF::registerPrefix('wo', 'http://purl.org/ontology/wo/');
 		RDF::registerPrefix('po', 'http://purl.org/ontology/po/');
 		RDF::registerPrefix('cc', 'http://creativecommons.org/ns#');
+		RDF::registerPrefix('ccweb', 'http://web.resource.org/cc/');
 		RDF::registerPrefix('skos2004', 'http://www.w3.org/2004/02/skos/core#');
 		RDF::registerPrefix('bibo', 'http://purl.org/ontology/bibo/');
 		RDF::registerPrefix('doi', 'http://dx.doi.org/');
 		RDF::registerPrefix('nature', 'http://ns.nature.com/terms/');
 		RDF::registerPrefix('prism', 'http://prismstandard.org/namespaces/basic/2.1/');
+		RDF::registerPrefix('ma', 'http://www.w3.org/TR/2010/WD-mediaont-10-20100608/');
+		RDF::registerPrefix('dbprop', 'http://dbpedia.org/property/');
+		RDF::registerPrefix('adms', 'http://www.w3.org/ns/adms#');
+		RDF::registerPrefix('vann', 'http://purl.org/vocab/vann/');
+		RDF::registerPrefix('relators', 'http://id.loc.gov/vocabulary/relators/');
+		RDF::registerPrefix('mads', 'http://www.loc.gov/mads/rdf/v1#');
+		RDF::registerPrefix('voaf', 'http://purl.org/vocommons/voaf#');
+		RDF::registerPrefix('swvs', 'http://www.w3.org/2003/06/sw-vocab-status/ns#');
 	}
 	
 	protected function getObject()
@@ -72,13 +81,55 @@ class LODScopeHomepage extends Page
 		return true;
 	}
 	
+	protected function predicateName($target)
+	{
+		if(!defined('LODSCOPE_FETCH_VOCABULARIES'))
+		{
+			return null;
+		}
+		$curl = new CurlCache();
+		$curl->followLocation = true;
+		$curl->autoReferrer = true;
+		$curl->unrestrictedAuth = true;
+		$curl->httpAuth = Curl::AUTH_ANYSAFE;
+		$curl->cacheTime = 28 * 24 * 60 * 60;
+		$curl->timeout = 10;
+		set_time_limit(30);
+		$doc = RDF::documentFromURL($target, $curl);
+		if($doc === null)
+		{
+			return null;
+		}
+		if(isset($doc[$target]))
+		{
+			return $doc[$target]->title();
+		}
+		return null;
+	}
+	
 	public /*callback*/ function linkFilter($target, $text, $predicate, $doc, $subj)
 	{
 		if(!strlen($target) || substr($target, 0, 1) == '#')
 		{
 			return '<a class="local" href="' . _e($target) . '">' . _e($text) . '</a>';
 		}
-		$link = '<a href="' . _e($this->request->base . '?uri=' . urlencode($target)) . '">' . _e($text) . '</a>';
+		if($predicate === null)
+		{
+			$predicateName = $this->predicateName($target);
+			if($predicateName !== null)
+			{
+				$text = _e($predicateName) . ' <span class="predname">(' . _e($text) . ')</span>';
+				$link = '<a href="' . _e($this->request->base . '?uri=' . urlencode($target)) . '">' . $text . '</a>';
+			}
+		}
+		else
+		{
+			$predicateName = null;
+		}
+		if($predicateName === null)
+		{
+			$link = '<a class="predname" href="' . _e($this->request->base . '?uri=' . urlencode($target)) . '">' . _e($text) . '</a>';
+		}
 		if(!strcmp($target, $text) && strlen($predicate))
 		{
 			$link .= ' (<a class="browse" href="' . _e($target) . '">Visit page</a>)';

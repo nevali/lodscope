@@ -99,4 +99,6 @@ ul > li {
 	margin: 0.25em 1em 0.25em 1.5em;
 	list-style: square outside;
 }
-
+.predname {
+	color: #444;
+}
