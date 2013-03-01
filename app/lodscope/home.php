@@ -47,7 +47,8 @@ class LODScopeHomepage extends Page
 		RDF::registerPrefix('relators', 'http://id.loc.gov/vocabulary/relators/');
 		RDF::registerPrefix('mads', 'http://www.loc.gov/mads/rdf/v1#');
 		RDF::registerPrefix('voaf', 'http://purl.org/vocommons/voaf#');
-		RDF::registerPrefix('swvs', 'http://www.w3.org/2003/06/sw-vocab-status/ns#');
+		RDF::registerPrefix('sws', 'http://www.w3.org/2003/06/sw-vocab-status/ns#');
+		RDF::registerPrefix('wot', 'http://xmlns.com/wot/0.1/');
 	}
 	
 	protected function getObject()
@@ -109,6 +110,14 @@ class LODScopeHomepage extends Page
 	
 	public /*callback*/ function linkFilter($target, $text, $predicate, $doc, $subj)
 	{
+		if($predicate === null && !strcmp($target, URI::rdf.'about'))
+		{
+			return 'Universal identifier';
+		}
+		if($predicate === null && !strcmp($target, URI::rdf.'type'))
+		{
+			return 'Type';
+		}
 		if(!strlen($target) || substr($target, 0, 1) == '#')
 		{
 			return '<a class="local" href="' . _e($target) . '">' . _e($text) . '</a>';
@@ -117,9 +126,8 @@ class LODScopeHomepage extends Page
 		{
 			$predicateName = $this->predicateName($target);
 			if($predicateName !== null)
-			{
-				$text = _e($predicateName) . ' <span class="predname">(' . _e($text) . ')</span>';
-				$link = '<a href="' . _e($this->request->base . '?uri=' . urlencode($target)) . '">' . $text . '</a>';
+			{				
+				$link = '<a title="' . _e($text) . '" href="' . _e($this->request->base . '?uri=' . urlencode($target)) . '">' . _e($predicateName) . '</a>';
 			}
 		}
 		else

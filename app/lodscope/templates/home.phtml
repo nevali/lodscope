@@ -20,7 +20,8 @@ require_once(dirname(__FILE__) . '/examples.php');
 
 $form = array();
 $form[] = '<form method="get" action="' . _e($app_root) . '">';
-$form[] = '<input type="text" name="uri" value="' . _e($uri) . '" size="64">';
+$form[] = '<label for="uri">Universal identifier:</label>';
+$form[] = '<input type="text" id="uri" name="uri" value="' . _e($uri) . '" size="64">';
 $form[] = '<input type="submit" name="go" value="Go">';
 $form[] = '</form>';
 
@@ -52,8 +53,8 @@ if(isset($object))
 	$header = array(
 		'<header>',
 		'<h1>' . _e($object->htmlTitle) . '</h1>',
-		'<p><a class="visit" href="' . _e($uri) . '">Visit page</a>.</p>',
-		'<p>Also available as:</p>',
+		'<p><a class="visit" href="' . _e($uri) . '">Visit page for this item</a>.</p>',
+		'<p>This data is also available as:</p>',
 		'<ul class="resource-types">',
 		);
 	foreach($serialisations as $path => $info)
@@ -98,9 +99,20 @@ else
 				linked data URI into the field below and press <i>Go</i> to fetch and browse the data at that URI.
 			</p>
 			<?php	
-
+if(isset($uri) && strlen($uri))
+{
+		echo '<p class="error">Unfortunately, LODscope wasn’t able to retrieve any data for the identifier that you specified. <a href="'. _e($uri) . '">Visit the page instead</a>?</p>';
+}
 echo implode("\n", $form);
 ?>
+			<p>
+				You	can also use the following bookmarklet to browse data with
+				LODscope. Drag it into your browser’s toolbar to install.
+				When you’re viewing a page you can press the button to
+				browse the data.
+			</p>
+			<p><a class="bookmarklet" href="javascript:location.href=&#039;http://lodscope.parthenon.org.uk/?uri=&#039;+encodeURIComponent(location.href);">LODscope</a></p>
+
 <h2>Examples</h2>
 <?php
 
