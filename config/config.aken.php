@@ -35,3 +35,4 @@ define('SCRIPTS_USE_GAPI', true);
 
 define('CURL_CACHE_DIR', INSTANCE_ROOT . 'cache/curl/');
 define('CACHE_TIME', 60);
+define('LODSCOPE_FETCH_VOCABULARIES', true);
