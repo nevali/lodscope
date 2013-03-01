@@ -113,7 +113,7 @@ class LODScopeHomepage extends Page
 		{
 			return '<a class="local" href="' . _e($target) . '">' . _e($text) . '</a>';
 		}
-		if($predicate === null)
+		if($predicate === null || !strcmp($predicate, URI::rdf.'type'))
 		{
 			$predicateName = $this->predicateName($target);
 			if($predicateName !== null)
