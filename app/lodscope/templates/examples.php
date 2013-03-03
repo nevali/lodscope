@@ -21,4 +21,5 @@ $examples = array(
 	'http://data.nytimes.com/51535120590522012773' => 'George Owell on the New York Times',
 	'http://www.legislation.gov.uk/ukpga/1988/48/section/35' => 'Section 35 of the Copyright, Designs and Patents Act 1988 on legislation.gov.uk',
 	'http://reference.data.gov.uk/id/open-government-licence' => 'The Open Government Licence',
+	'http://sameas.org/rdf?uri=http%3A%2F%2Fdbpedialite.org%2Fthings%2F21177839%23id' => 'sameas.org lookup for the entry for “Fire” on dbpedialite',
 );
