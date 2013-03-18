@@ -1,5 +1,6 @@
 <?php
 $examples = array(
+	'http://yawdle.com/' => 'Yawdle',
 	'http://dbpedialite.org/things/20501277#id' => 'Florence and the Machine on dbpedialite',
 	'http://www.bbc.co.uk/nature/life/Common_Toad#species' => 'The Common Toad on BBC Wildlife Finder',
 	'http://www.bbc.co.uk/programmes/p00wpvpn#programme' => 'Treasures of Ancient Rome on BBC Programmes',

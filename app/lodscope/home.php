@@ -95,6 +95,7 @@ class LODScopeHomepage extends Page
 		$curl->httpAuth = Curl::AUTH_ANYSAFE;
 		$curl->cacheTime = 28 * 24 * 60 * 60;
 		$curl->timeout = 10;
+		$curl->forbidReuse = true;
 		set_time_limit(30);
 		$doc = RDF::documentFromURL($target, $curl);
 		if($doc === null)
@@ -127,7 +128,7 @@ class LODScopeHomepage extends Page
 			$predicateName = $this->predicateName($target);
 			if($predicateName !== null)
 			{				
-				$link = '<a title="' . _e($text) . '" href="' . _e($this->request->base . '?uri=' . urlencode($target)) . '">' . _e($predicateName) . '</a>';
+				$link = '<a title="' . _e($text) . '" href="' . _e($this->request->base . '?uri=' . urlencode($target) . '#local-' . md5('[' . $target . ']')) . '">' . _e($predicateName) . '</a>';
 			}
 		}
 		else
@@ -136,7 +137,7 @@ class LODScopeHomepage extends Page
 		}
 		if($predicateName === null)
 		{
-			$link = '<a class="predname" href="' . _e($this->request->base . '?uri=' . urlencode($target)) . '">' . _e($text) . '</a>';
+			$link = '<a class="predname" href="' . _e($this->request->base . '?uri=' . urlencode($target) . '#local-' . md5('[' . $target . ']')) . '">' . _e($text) . '</a>';
 		}
 		if(!strcmp($target, $text) && strlen($predicate))
 		{
